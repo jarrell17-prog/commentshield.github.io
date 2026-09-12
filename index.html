@@ -93,7 +93,7 @@
           <a class="btn ghost" onclick="go('signup')">Start free</a>
         </div>
         <div class="plan hot">
-          <h3>Pro</h3><div class="amt">$2.99<small>/mo</small></div><div class="for">For working creators</div>
+          <h3>Pro</h3><div class="amt">$10<small>/mo</small></div><div class="for">For working creators</div>
           <ul><li>Everything in Free</li>
             <li><strong>Facebook &amp; LinkedIn filtering</strong></li>
             <li>Filter strength control</li><li>Feedback digest</li>
@@ -101,7 +101,7 @@
           <a class="btn" onclick="signupPlan('pro')">Start Pro</a>
         </div>
         <div class="plan">
-          <h3>Studio</h3><div class="amt">$29<small>/mo</small></div><div class="for">For teams, apps &amp; platforms</div>
+          <h3>Studio</h3><div class="amt">$20<small>/mo</small></div><div class="for">For teams, apps &amp; platforms</div>
           <ul><li>Everything in Pro</li><li>Hosted filtering API — 100k comments/mo</li>
             <li>API keys &amp; usage dashboard</li><li>Multiple channels &amp; seats</li><li>Priority support</li></ul>
           <a class="btn ghost" onclick="signupPlan('studio')">Start Studio</a>
@@ -384,7 +384,7 @@ Authorization: Bearer cs_live_...
         <p class="sub">Manage your plan.</p>
         <div class="panel">
           <h3>Current plan: <span id="planName">Pro</span> <span class="pill">active</span></h3>
-          <p style="font-size:14px;color:var(--muted);margin-bottom:14px;" id="planDesc">$2.99/month · renews on the 1st</p>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:14px;" id="planDesc">$10/month · renews on the 1st</p>
           <button class="btn sm" onclick="setPlan('studio')">Upgrade to Studio</button>
           <button class="btn sm ghost" onclick="setPlan('pro')">Switch to Pro</button>
         </div>
@@ -484,7 +484,7 @@ function syncPlan() {
   const name = state.plan === "studio" ? "Studio" : "Pro";
   document.getElementById("planName").textContent = name;
   document.getElementById("planDesc").textContent =
-    state.plan === "studio" ? "$29/month · includes 100k API comments" : "$2.99/month · renews on the 1st";
+    state.plan === "studio" ? "$20/month · includes 100k API comments" : "$10/month · renews on the 1st";
   document.getElementById("keyPill").textContent = name;
 }
 function copyKey() {
