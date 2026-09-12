@@ -32,7 +32,9 @@
         with our filtering API.</p>
         <div class="ctas">
           <a class="btn" onclick="go('signup')">Start free</a>
+          <a class="btn ghost" onclick="go('api')">Explore the API</a>
         </div>
+        <p class="sub">Extension filtering is 100% on-device. No account required to start.</p>
       </div>
       <div class="feed">
         <div class="feed-head">
@@ -59,6 +61,22 @@
     </div>
   </section>
 
+  <section class="band-dark" id="apiBand">
+    <div class="wrap">
+      <span class="eyebrow">For platforms &amp; apps</span>
+      <h2 class="sec">One POST request to a calmer community</h2>
+      <p class="band-lede">The same engine, hosted. Send comments,
+      get verdicts — <b>pass</b>, <b>quarantine</b>,
+      <b>hide</b>, or <b>block</b> — with scores and reasons.</p>
+      <div class="code">curl https://api.commentshield.app/v1/classify \
+  -H <span class="s">"Authorization: Bearer $CS_KEY"</span> \
+  -d <span class="s">'{"comments":[{"id":"1","author":"anon9","text":"just quit already"}]}'</span>
+
+<span class="k">&rarr;</span> {"id":"1", "verdict":"hide", "toxicity":0.82, "bot":0.03,
+   "reasons":["toxic phrase","targeted at creator"]}</div>
+      <div style="margin-top:22px;"><a class="btn" onclick="go('signup')">Get an API key</a></div>
+    </div>
+  </section>
 </div>
 
 <!-- ==================== PRICING ==================== -->
@@ -70,12 +88,15 @@
       <div class="plans">
         <div class="plan">
           <h3>Free</h3><div class="amt">$0</div><div class="for">For every creator</div>
-          <ul><li>Browser extension</li><li>Toxic + bot filtering, on-device</li><li>Shield stats</li></ul>
+          <ul><li>Browser extension &mdash; YouTube &amp; X</li>
+            <li>Toxic + bot filtering, on-device</li><li>Shield stats</li></ul>
           <a class="btn ghost" onclick="go('signup')">Start free</a>
         </div>
         <div class="plan hot">
           <h3>Pro</h3><div class="amt">$2.99<small>/mo</small></div><div class="for">For working creators</div>
-          <ul><li>Everything in Free</li><li>Filter strength control</li><li>Feedback digest</li>
+          <ul><li>Everything in Free</li>
+            <li><strong>Facebook &amp; LinkedIn filtering</strong></li>
+            <li>Filter strength control</li><li>Feedback digest</li>
             <li>Reply Studio — drafts in your voice</li><li>Web dashboard</li></ul>
           <a class="btn" onclick="signupPlan('pro')">Start Pro</a>
         </div>
@@ -146,7 +167,7 @@ Authorization: Bearer cs_live_...
       <div class="faq">
         <details open>
           <summary>How do I turn filtering on or off?</summary>
-          <div class="a">Click the shield icon in your Chrome toolbar and use the <code>Enabled</code> toggle at the top of the popup. Changes apply immediately on YouTube.</div>
+          <div class="a">Click the shield icon in your Chrome toolbar and use the <code>Enabled</code> toggle at the top of the popup. Changes apply immediately, on every supported site. You can also switch individual sites on or off under <code>Run on</code>.</div>
         </details>
         <details>
           <summary>What do "Relaxed," "Standard," and "Strict" mean?</summary>
@@ -165,8 +186,8 @@ Authorization: Bearer cs_live_...
           <div class="a">Click <code>Show anyway</code> on the collapsed comment to read it &mdash; nothing is deleted, only collapsed. If it happens often, try lowering the strength to Relaxed in the popup (Pro), or let us know what got flagged so we can improve detection.</div>
         </details>
         <details>
-          <summary>Does CommentShield work on sites other than YouTube?</summary>
-          <div class="a">Not yet &mdash; the current version is built specifically for YouTube's comment threads.</div>
+          <summary>Which sites does CommentShield work on?</summary>
+          <div class="a">YouTube and X (Twitter) on every plan, including Free. Facebook and LinkedIn are included with Pro. Each site has its own on/off switch under <code>Run on</code> in the popup, and filtering runs on-device on all of them.</div>
         </details>
       </div>
 
@@ -186,11 +207,11 @@ Authorization: Bearer cs_live_...
   <div class="doc">
     <div class="wrap narrow">
 
-      <p class="updated">Last updated: July 24, 2026</p>
+      <p class="updated">Last updated: September 11, 2026</p>
 
       <p>CommentShield ("the extension," "we," "us") is a browser extension that hides toxic comments
-      and bot spam on YouTube. This policy explains what data the extension does and does not
-      collect, and how it is used.</p>
+      and bot spam on YouTube, X (Twitter), Facebook and LinkedIn. This policy explains what data the
+      extension does and does not collect, and how it is used.</p>
 
       <h2>Summary</h2>
       <p>CommentShield does all comment filtering locally, on your own device. We do not operate a
@@ -202,7 +223,8 @@ Authorization: Bearer cs_live_...
       <p>The extension uses Chrome's local <code>storage</code> permission to save the following
       information <strong>only on your own device</strong>:</p>
       <ul>
-        <li>Your preferences (on/off toggle, filter sensitivity, quarantine display setting)</li>
+        <li>Your preferences (on/off toggle, which sites to run on, filter sensitivity, quarantine
+        display setting)</li>
         <li>Local usage counters (number of comments hidden, blocked, or quarantined), used only to
         show you your own stats in the popup</li>
         <li>Your subscription status (free or Pro), cached so the extension knows which features to
@@ -213,12 +235,23 @@ Authorization: Bearer cs_live_...
 
       <h2>What the extension can access, and why</h2>
       <ul>
-        <li><strong>youtube.com</strong> &mdash; CommentShield's content script reads the comment section of
-        YouTube pages you visit, in your browser, in order to identify and hide toxic or spam
-        comments. This analysis happens locally; comment text is never sent off your device.</li>
+        <li><strong>youtube.com</strong> &mdash; CommentShield's content script reads the comment threads
+        under videos you visit, in your browser, in order to identify and hide toxic or spam
+        comments. Available on all plans.</li>
+        <li><strong>x.com and twitter.com</strong> &mdash; reads the replies and timeline posts on pages you
+        visit, for the same purpose. Available on all plans.</li>
+        <li><strong>facebook.com</strong> &mdash; reads the comments under posts you visit, for the same
+        purpose. Used only on the Pro plan; on the Free plan the extension does not read or process
+        anything on this site.</li>
+        <li><strong>linkedin.com</strong> &mdash; reads the comments under posts you visit, for the same
+        purpose. Used only on the Pro plan; on the Free plan the extension does not read or process
+        anything on this site.</li>
         <li><strong>extensionpay.com</strong> &mdash; used only to check and manage your Pro subscription
         status, described below.</li>
       </ul>
+      <p>On every site above, the analysis happens locally in your browser. Comment text, page
+      content, and the addresses of pages you visit are never sent off your device. The extension
+      reads only the comment areas of these sites, and only while you are on them.</p>
 
       <h2>Payments and subscriptions (Pro plan)</h2>
       <p>If you choose to purchase the optional Pro plan, payment processing is handled entirely by
