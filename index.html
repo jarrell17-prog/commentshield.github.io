@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="stylesheet" href="style.css" />
 </head>
@@ -98,13 +99,19 @@
             <li><strong>Facebook &amp; LinkedIn filtering</strong></li>
             <li>Filter strength control</li><li>Feedback digest</li>
             <li>Reply Studio — drafts in your voice</li><li>Web dashboard</li></ul>
-          <a class="btn" onclick="signupPlan('pro')">Start Pro</a>
+          <stripe-buy-button
+            buy-button-id="buy_btn_1UGQgnIUlC6g6KmvyguazjyX"
+            publishable-key="pk_live_51TwmdwIUlC6g6KmvwsFPBO3y9dOJhM4Obbdy5tyQD69RKOh6pcpaGNwPaoyLZpFEKZcBcsCc7tEyevi8BCbBDzpW00PZ5oDzBt">
+          </stripe-buy-button>
         </div>
         <div class="plan">
           <h3>Studio</h3><div class="amt">$20<small>/mo</small></div><div class="for">For teams, apps &amp; platforms</div>
           <ul><li>Everything in Pro</li><li>Hosted filtering API — 100k comments/mo</li>
             <li>API keys &amp; usage dashboard</li><li>Multiple channels &amp; seats</li><li>Priority support</li></ul>
-          <a class="btn ghost" onclick="signupPlan('studio')">Start Studio</a>
+          <stripe-buy-button
+            buy-button-id="buy_btn_1UGQeTIUlC6g6KmvW6qUxCo1"
+            publishable-key="pk_live_51TwmdwIUlC6g6KmvwsFPBO3y9dOJhM4Obbdy5tyQD69RKOh6pcpaGNwPaoyLZpFEKZcBcsCc7tEyevi8BCbBDzpW00PZ5oDzBt">
+          </stripe-buy-button>
         </div>
       </div>
       <p class="note">Prices shown are launch placeholders — validate against comparable tools before going live.</p>
