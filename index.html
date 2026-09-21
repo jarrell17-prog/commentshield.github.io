@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 <link rel="icon" type="image/png" href="favicon.png" />
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -93,19 +93,21 @@
             <li><strong>Facebook &amp; LinkedIn filtering</strong></li>
             <li>Filter strength control</li><li>Feedback digest</li>
             <li>Reply Studio — drafts in your voice</li><li>Web dashboard</li></ul>
-          <stripe-buy-button
-            buy-button-id="buy_btn_1UGQgnIUlC6g6KmvyguazjyX"
-            publishable-key="pk_live_51TwmdwIUlC6g6KmvwsFPBO3y9dOJhM4Obbdy5tyQD69RKOh6pcpaGNwPaoyLZpFEKZcBcsCc7tEyevi8BCbBDzpW00PZ5oDzBt">
-          </stripe-buy-button>
+          <!-- Filled by initCheckout(): the Stripe Buy Button when the visitor
+               arrived from the extension's upgrade button, otherwise this hint. -->
+          <div class="buy" id="proBuy">
+            <p class="buy-hint">To subscribe, click <strong>Upgrade to Pro</strong> in the CommentShield
+            toolbar popup. That links checkout to your browser, so Pro unlocks on its own once you pay.</p>
+          </div>
         </div>
         <div class="plan">
           <h3>Studio</h3><div class="amt">$20<small>/mo</small></div><div class="for">For teams, apps &amp; platforms</div>
           <ul><li>Everything in Pro</li><li>Hosted filtering API — 100k comments/mo</li>
             <li>API keys &amp; usage dashboard</li><li>Multiple channels &amp; seats</li><li>Priority support</li></ul>
-          <stripe-buy-button
-            buy-button-id="buy_btn_1UGQeTIUlC6g6KmvW6qUxCo1"
-            publishable-key="pk_live_51TwmdwIUlC6g6KmvwsFPBO3y9dOJhM4Obbdy5tyQD69RKOh6pcpaGNwPaoyLZpFEKZcBcsCc7tEyevi8BCbBDzpW00PZ5oDzBt">
-          </stripe-buy-button>
+          <div class="buy" id="studioBuy">
+            <p class="buy-hint">To subscribe, click the upgrade button in the CommentShield toolbar
+            popup. That links checkout to your browser, so Studio unlocks on its own once you pay.</p>
+          </div>
         </div>
       </div>
       <p class="note">Prices shown are launch placeholders — validate against comparable tools before going live.</p>
@@ -176,11 +178,11 @@ Authorization: Bearer cs_live_...
         </details>
         <details>
           <summary>Is any of my data sent to a server?</summary>
-          <div class="a">No. Comment filtering runs entirely in your browser. The only network connection CommentShield makes is to ExtPay/Stripe, and only if you choose to subscribe to Pro. See the <a href="#privacy">privacy policy</a> for full details.</div>
+          <div class="a">No comments, browsing activity, or page content. Filtering runs entirely in your browser. The only network request the extension makes is a Pro license check, which sends a random install ID (not tied to you) and gets back paid or unpaid. Checkout itself happens with Stripe on our website. See the <a href="#privacy">privacy policy</a> for full details.</div>
         </details>
         <details>
           <summary>How do I upgrade to Pro, or cancel?</summary>
-          <div class="a">Open the popup and select <code>Upgrade</code> to start checkout via ExtPay/Stripe. To cancel, use the manage-subscription link in your payment receipt email, or contact us and we'll point you to it.</div>
+          <div class="a">Open the popup and click <code>Upgrade to Pro</code>. It opens our pricing page linked to your browser; subscribe there through Stripe, and Pro unlocks in the extension on its own, usually within a minute or two. To cancel, use the link in your Stripe receipt email, or contact us and we'll help.</div>
         </details>
         <details>
           <summary>A genuine comment got hidden. What do I do?</summary>
@@ -208,7 +210,7 @@ Authorization: Bearer cs_live_...
   <div class="doc">
     <div class="wrap narrow">
 
-      <p class="updated">Last updated: September 11, 2026</p>
+      <p class="updated">Last updated: September 16, 2026</p>
 
       <p>CommentShield ("the extension," "we," "us") is a browser extension that hides toxic comments
       and bot spam on YouTube, X (Twitter), Facebook and LinkedIn. This policy explains what data the
@@ -228,11 +230,15 @@ Authorization: Bearer cs_live_...
         display setting)</li>
         <li>Local usage counters (number of comments hidden, blocked, or quarantined), used only to
         show you your own stats in the popup</li>
-        <li>Your subscription status (free or Pro), cached so the extension knows which features to
+        <li>Your subscription status (Free, Pro, or Studio), cached so the extension knows which features to
         unlock</li>
+        <li>A random install ID, generated when the extension is installed. It is not derived from
+        your name, email, account, or device, and is used only to match a Pro or Studio purchase to this copy
+        of the extension (see below)</li>
       </ul>
       <p>None of this information leaves your device, is transmitted to us, or is accessible to any
-      other website or extension.</p>
+      other website or extension &mdash; with one exception: the install ID, which is sent as
+      described under "Payments and subscriptions" when you choose to upgrade or have upgraded.</p>
 
       <h2>What the extension can access, and why</h2>
       <ul>
@@ -247,28 +253,29 @@ Authorization: Bearer cs_live_...
         <li><strong>linkedin.com</strong> &mdash; reads the comments under posts you visit, for the same
         purpose. Used only on the Pro plan; on the Free plan the extension does not read or process
         anything on this site.</li>
-        <li><strong>extensionpay.com</strong> &mdash; used only to check and manage your Pro subscription
-        status, described below.</li>
       </ul>
+      <p>Separately from the sites above, the extension contacts our license server only to ask
+      whether this install has a paid plan, as described under "Payments and subscriptions."</p>
       <p>On every site above, the analysis happens locally in your browser. Comment text, page
       content, and the addresses of pages you visit are never sent off your device. The extension
       reads only the comment areas of these sites, and only while you are on them.</p>
 
-      <h2>Payments and subscriptions (Pro plan)</h2>
-      <p>If you choose to purchase the optional Pro plan, payment processing is handled entirely by
-      our payment provider, <a href="https://extensionpay.com" target="_blank" rel="noopener">ExtPay
-      (extensionpay.com)</a>, which uses Stripe to process payments. We never see or store your
-      payment card details.</p>
-      <p>To manage your subscription, ExtPay collects the email address you provide at checkout and
-      your payment status. That information is handled under ExtPay's and Stripe's own privacy
-      policies:</p>
+      <h2>Payments and subscriptions (Pro and Studio plans)</h2>
+      <p>If you choose to purchase the optional Pro or Studio plan, checkout is handled entirely by
+      <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a> on our website. We never
+      see or store your payment card details. Stripe collects the email address and payment details
+      you provide at checkout under its own
+      <a href="https://stripe.com/privacy" target="_blank" rel="noopener">privacy policy</a>.</p>
+      <p>To unlock your plan automatically, the extension works with a small license server we operate:</p>
       <ul>
-        <li><a href="https://extensionpay.com/privacy.html" target="_blank" rel="noopener">ExtPay Privacy Policy</a></li>
-        <li><a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy</a></li>
+        <li>When you click the upgrade button, the extension opens our pricing page with its
+        random install ID, which is passed to Stripe as a reference on your checkout.</li>
+        <li>When the payment completes, Stripe notifies our license server, which records that install
+        ID as paid, which plan (Pro or Studio) was purchased, and Stripe's subscription and customer identifiers so it can react to renewals
+        and cancellations. It does not receive or store your card details.</li>
+        <li>The extension periodically sends its install ID to the license server and receives back only
+        a paid/unpaid answer and the plan name. No comments, browsing activity, or page content are ever included.</li>
       </ul>
-      <p>CommentShield only receives a simple paid/unpaid status back from ExtPay so it knows whether
-      to enable Pro features &mdash; it does not receive your email, card details, or any other checkout
-      information.</p>
 
       <h2>What we don't do</h2>
       <ul>
@@ -446,7 +453,6 @@ function renderNav() {
     n.appendChild(a); return a;
   };
   mk("Pricing", () => go("pricing"));
-  mk("API", () => go("api"));
   if (state.user) {
     mk("Dashboard", () => go("app"));
     const b = mk("Sign out", doLogout, "btn sm"); b.style.color = "#fff";
@@ -606,6 +612,57 @@ function pushComment() {
 }
 for (let i = 0; i < 5; i++) pushComment();
 if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(pushComment, 2200);
+
+/* ---------------- Pro & Studio checkout (Stripe Buy Buttons) ----------------
+   The extension opens this page as ?cs_install=<uuid>#pricing. That ID goes to
+   Stripe as client-reference-id; the license server's webhook records it, and
+   the extension unlocks the plan when the server reports it paid. Which plan
+   was bought is read from Stripe's own product data, never from this page.
+   Without an ID a payment couldn't be matched to anyone's browser, so the
+   buttons are only shown when one is present. The publishable key is designed
+   to be public. */
+const CHECKOUT_BUTTONS = [
+  { slot: "proBuy",    buyButtonId: "buy_btn_1UGQgnIUlC6g6KmvyguazjyX" },
+  { slot: "studioBuy", buyButtonId: "buy_btn_1UGRQiIUlC6g6KmvnmzJUI9c" }
+];
+const STRIPE_PUBLISHABLE_KEY =
+  "pk_live_51TwmdwIUlC6g6KmvwsFPBO3y9dOJhM4Obbdy5tyQD69RKOh6pcpaGNwPaoyLZpFEKZcBcsCc7tEyevi8BCbBDzpW00PZ5oDzBt";
+const INSTALL_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+function initCheckout() {
+  const params = new URLSearchParams(location.search);
+  let id = (params.get("cs_install") || "").toLowerCase();
+
+  if (params.has("cs_install")) {
+    // Strip it from the address bar so it isn't copied into shared links.
+    params.delete("cs_install");
+    const qs = params.toString();
+    history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
+  }
+
+  try {
+    if (INSTALL_RE.test(id)) sessionStorage.setItem("csInstall", id);
+    else id = sessionStorage.getItem("csInstall") || "";
+  } catch (e) { /* storage blocked: only this page view gets the button */ }
+
+  if (!INSTALL_RE.test(id)) return; // leave the "use the toolbar popup" hints
+
+  for (const { slot, buyButtonId } of CHECKOUT_BUTTONS) {
+    const btn = document.createElement("stripe-buy-button");
+    btn.setAttribute("buy-button-id", buyButtonId);
+    btn.setAttribute("publishable-key", STRIPE_PUBLISHABLE_KEY);
+    btn.setAttribute("client-reference-id", id);
+    document.getElementById(slot).replaceChildren(btn);
+  }
+
+  if (!document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) {
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://js.stripe.com/v3/buy-button.js";
+    document.head.appendChild(s);
+  }
+}
+initCheckout();
 
 render(currentView());
 </script>
