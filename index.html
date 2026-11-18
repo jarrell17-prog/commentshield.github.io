@@ -32,8 +32,7 @@
         you — in your browser with our extension, or at scale for your whole platform
         with our filtering API.</p>
         <div class="ctas">
-          <a class="btn" onclick="go('signup')">Start free</a>
-          <a class="btn ghost" onclick="go('api')">Explore the API</a>
+          <a class="btn" onclick="go('pricing')">Upgrade to Pro</a>
         </div>
         <p class="sub">Extension filtering is 100% on-device. No account required to start.</p>
       </div>
@@ -440,8 +439,7 @@ function renderNav() {
     mk("Dashboard", () => go("app"));
     const b = mk("Sign out", doLogout, "btn sm"); b.style.color = "#fff";
   } else {
-    mk("Sign in", () => go("login"));
-    const b = mk("Start free", () => go("signup"), "btn sm"); b.style.color = "#fff";
+    const b = mk("Upgrade to Pro", () => go("pricing"), "btn sm"); b.style.color = "#fff";
   }
 }
 
