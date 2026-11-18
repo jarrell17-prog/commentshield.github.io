@@ -61,23 +61,6 @@
       </div>
     </div>
   </section>
-
-  <section class="band-dark" id="apiBand">
-    <div class="wrap">
-      <span class="eyebrow">For platforms &amp; apps</span>
-      <h2 class="sec">One POST request to a calmer community</h2>
-      <p class="band-lede">The same engine, hosted. Send comments,
-      get verdicts — <b>pass</b>, <b>quarantine</b>,
-      <b>hide</b>, or <b>block</b> — with scores and reasons.</p>
-      <div class="code">curl https://api.commentshield.app/v1/classify \
-  -H <span class="s">"Authorization: Bearer $CS_KEY"</span> \
-  -d <span class="s">'{"comments":[{"id":"1","author":"anon9","text":"just quit already"}]}'</span>
-
-<span class="k">&rarr;</span> {"id":"1", "verdict":"hide", "toxicity":0.82, "bot":0.03,
-   "reasons":["toxic phrase","targeted at creator"]}</div>
-      <div style="margin-top:22px;"><a class="btn" onclick="go('signup')">Get an API key</a></div>
-    </div>
-  </section>
 </div>
 
 <!-- ==================== PRICING ==================== -->
