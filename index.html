@@ -600,20 +600,14 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(pushCom
    the extension unlocks the plan when the server reports it paid. Which plan
    was bought is read from Stripe's own product data, never from this page.
    Without an ID a payment couldn't be matched to anyone's browser, so the
-   buttons are only shown when one is present. Publishable keys are designed
+   buttons are only shown when one is present. The publishable key is designed
    to be public. */
 const CHECKOUT_BUTTONS = [
-  {
-    slot: "proBuy",
-    buyButtonId: "buy_btn_1UdKUD2KtRDlPytjWH1r626V",
-    publishableKey: "pk_live_51RiIkd2KtRDlPytjhC4pNzy5FrYoCKaUvzbfgbc6X5EUwo1WjQWwjCJ6y99vz8t8igXSrcahCYx2lHzL8JZO95dV00TJn0Ew2y"
-  },
-  {
-    slot: "studioBuy",
-    buyButtonId: "buy_btn_1UGRQiIUlC6g6KmvnmzJUI9c",
-    publishableKey: "pk_live_51TwmdwIUlC6g6KmvwsFPBO3y9dOJhM4Obbdy5tyQD69RKOh6pcpaGNwPaoyLZpFEKZcBcsCc7tEyevi8BCbBDzpW00PZ5oDzBt"
-  }
+  { slot: "proBuy",    buyButtonId: "buy_btn_1UGQgnIUlC6g6KmvyguazjyX" },
+  { slot: "studioBuy", buyButtonId: "buy_btn_1UGRQiIUlC6g6KmvnmzJUI9c" }
 ];
+const STRIPE_PUBLISHABLE_KEY =
+  "pk_live_51TwmdwIUlC6g6KmvwsFPBO3y9dOJhM4Obbdy5tyQD69RKOh6pcpaGNwPaoyLZpFEKZcBcsCc7tEyevi8BCbBDzpW00PZ5oDzBt";
 const INSTALL_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 function initCheckout() {
@@ -634,10 +628,10 @@ function initCheckout() {
 
   if (!INSTALL_RE.test(id)) return; // leave the "use the toolbar popup" hints
 
-  for (const { slot, buyButtonId, publishableKey } of CHECKOUT_BUTTONS) {
+  for (const { slot, buyButtonId } of CHECKOUT_BUTTONS) {
     const btn = document.createElement("stripe-buy-button");
     btn.setAttribute("buy-button-id", buyButtonId);
-    btn.setAttribute("publishable-key", publishableKey);
+    btn.setAttribute("publishable-key", STRIPE_PUBLISHABLE_KEY);
     btn.setAttribute("client-reference-id", id);
     document.getElementById(slot).replaceChildren(btn);
   }
